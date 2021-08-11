@@ -1,0 +1,63 @@
+@import '_variables.scss';
+
+.header__wrapper {
+  // color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.header__logo {
+  margin-left: 48px;
+}
+
+.header__search {
+  display: flex;
+  align-items: center;
+  height: 39px;
+  padding: 10px;
+}
+
+.header__search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  border: 1px solid #ada9bb;
+  padding: 5px;
+  border-radius: 4px;
+  > input {
+    border: none;
+    width: 375px;
+    margin-left: 5px;
+    margin-right: 10px;
+    color: $color-text;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+// .header__search-container > .MuiSvgIcon-root {
+//   color: gray;
+//   padding: 10px;
+// }
+
+.header__menu-items {
+  margin-right: 48px;
+  a {
+    font-weight: bold;
+    color: $color-text;
+    text-decoration: none;
+    padding: 0 10px;
+    &:hover,
+    &:active {
+      color: $color-blue;
+    }
+  }
+}
+
+// a:first-of-type {
+//   color: rgb(46, 81, 250);
+// }
