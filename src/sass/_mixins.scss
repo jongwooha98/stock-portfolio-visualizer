@@ -1,0 +1,29 @@
+@import './_variables.scss';
+// Media Breakpoints
+$breakpointSm: 576px;
+$breakpointMd: 768px;
+$breakpointLg: 992px;
+$breakpoingXLg: 1200px;
+@mixin --viewportSm {
+  @media (min-width: $breakpointSm) {
+    @content;
+  }
+}
+
+@mixin --viewportMd {
+  @media (min-width: $breakpointMd) {
+    @content;
+  }
+}
+
+@mixin --viewportLg {
+  @media (min-width: $breakpointLg) {
+    @content;
+  }
+}
+
+@mixin --box-shadow {
+  box-shadow: 0px 0px 10px -8px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0px 0px 10px -8px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 0px 10px -8px rgba(0, 0, 0, 0.7);
+}

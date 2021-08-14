@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import '../sass/_linegraph.scss';
+import './_newsfeed.scss';
 
-function LineGraph({ graphData, setGraphData }) {
+function AssetsGraph({ graphData, setGraphData }) {
   const data = {
     labels: graphData.labels,
     datasets: [
@@ -68,10 +68,19 @@ function LineGraph({ graphData, setGraphData }) {
     generateData();
   }, []);
   return (
-    <div className="linegraph">
+    <div className="assets-graph">
       <Line type="line" data={data} options={options} />
+      <div className="timeframe__buttons">
+        <div className="timeframe__button active">LIVE</div>
+        <div className="timeframe__button">1D</div>
+        <div className="timeframe__button">1W</div>
+        <div className="timeframe__button">1M</div>
+        <div className="timeframe__button">3M</div>
+        <div className="timeframe__button">1Y</div>
+        <div className="timeframe__button">ALL</div>
+      </div>
     </div>
   );
 }
 
-export default LineGraph;
+export default AssetsGraph;

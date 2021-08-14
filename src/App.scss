@@ -2,47 +2,72 @@
 @import './sass/_mixins.scss';
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
-  /* background-color: black; */
+  margin: 0 0 $header-height 0;
+  font-family: $body-font;
+  font-size: $size-medium;
+  background-color: #fff;
+  color: $color-text;
 }
 
-.app {
-  /* background-color: black; */
-  /* height: fit-content; */
-  place-items: center;
+h1,
+h2,
+h3,
+h4 {
+  color: $color-text;
+  font-weight: $font-semi-bold;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+button,
+input[type='submit'],
+input[type='reset'] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 
 .app__header {
 }
-.app__body {
-  /* make background black later */
-  /* background-color: black; */
-  margin: 0;
-  display: grid;
-  place-items: center;
-  z-index: -1;
-}
-
 .app__container {
   display: flex;
   flex-flow: column;
   padding: 20px;
   // width: 80%;
-  box-shadow: 0px 0px 10px -8px rgba(0, 0, 0, 0.7);
-  -webkit-box-shadow: 0px 0px 10px -8px rgba(0, 0, 0, 0.7);
-  -moz-box-shadow: 0px 0px 10px -8px rgba(0, 0, 0, 0.7);
+  gap: 40px;
+
   color: $color-text;
-  z-index: 50;
+  // z-index: 50;
 }
 
 @include --viewportMd {
   .app__container {
-    flex-flow: row;
+    flex-flow: row wrap;
+    margin: 60px auto;
+    width: 90%;
+    // justify-content: center;
+  }
+}
+
+@include --viewportLg {
+  .app__container {
     width: 80%;
   }
 }

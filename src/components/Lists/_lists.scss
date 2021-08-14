@@ -1,34 +1,29 @@
-@import './_variables';
+@import '../../sass/_variables.scss';
+@import '../../sass/_mixins.scss';
 
-.stats {
-  flex: 0.3;
+.lists {
+  // flex: 0.3;
   display: flex;
   flex-direction: column;
-  padding: 0px 30px 30px 30px;
-  // background-color: $color-gray;
-}
-.stats__container {
-  flex-direction: column;
-  flex: 1;
-  // background-color: #1e2023;
+  // padding: 0px 30px 30px 30px;
+  // background-color: red;
   border-radius: 5px;
-  // border: 1px solid #42494d;
+  @include --box-shadow;
 }
 
-.stats__content {
-  font-size: 13px;
+.lists__content {
+  font-size: $size-small;
 }
 
-.stats__header {
+.lists__header {
   display: flex;
-  font-size: 16px;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #42494d;
   padding: 20px 20px 10px 20px;
   font-weight: 500;
 }
-.stats-lists {
+.lists-lists {
   height: 52px;
   border-top: 1px solid #42494d;
   padding: 4px 20px 0px 20px;
@@ -73,3 +68,9 @@
 .row__percentage-negative {
   color: $color-red;
 }
+
+// @include --viewportMd {
+//   .lists {
+//     flex: 0.3;
+//   }
+// }

@@ -1,0 +1,121 @@
+@import '../../sass/_variables.scss';
+@import '../../sass/_mixins.scss';
+
+.newsfeed {
+  // flex: 0.7;
+  display: flex;
+  flex-direction: column;
+  // background-color: gold;
+  // align-items: center;
+}
+.newsfeed__container {
+  // flex: 1;
+  // background-color: black;
+  // font-size: 12px;
+}
+
+.newsfeed__chart__section {
+}
+.newsfeed__buying-power__section {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-darkgray;
+  margin-bottom: 60px;
+}
+
+.newsfeed__market__section {
+  margin: 12px 0;
+  padding: 0;
+  margin-bottom: 60px;
+}
+.newsfeed__market__box {
+  // height: 10vh;
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid #31363a;
+  p {
+    color: $color-darkgray;
+    font-size: $size-small;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+}
+
+.newsfeed__popularlists__section {
+  height: fit-content;
+  padding-bottom: 20px;
+}
+
+.newsfeed__popularlists__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px 20px 0px;
+  > p {
+    font-weight: bold;
+    color: orange;
+  }
+}
+
+.newsfeed__popularlists__chips {
+  display: flex;
+  flex-wrap: wrap;
+  .topic-chip {
+    border: 1px solid $color-darkgray;
+    background-color: transparent;
+    color: $color-text;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+// @include --viewportMd {
+//   .newsfeed {
+//     flex: 0.7;
+//   }
+// }
+
+// LINEGRAPH
+.assets-graph {
+  // height: 200px;
+  // display: flex;
+}
+
+// timeframe
+
+.timeframe__buttons {
+  display: flex;
+  padding-bottom: 0px;
+  border-bottom: 1px solid $color-darkgray;
+  justify-content: space-between;
+}
+
+.timeframe__button {
+  padding: 5px 0 10px;
+
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    color: $color-blue;
+    // border-bottom: 2px solid $color-blue;
+  }
+  &:active {
+    color: $color-blue;
+    border-bottom: 2px solid $color-blue;
+  }
+  &.active {
+    color: $color-blue;
+    border-bottom: 2px solid $color-blue;
+  }
+}
+
+@include --viewportMd {
+  .timeframe__buttons {
+    justify-content: initial;
+  }
+  .timeframe__button {
+    padding: 10px 10px 20px;
+  }
+}

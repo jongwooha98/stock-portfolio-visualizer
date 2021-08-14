@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { HashLink as Link } from 'react-router-hash-link';
-import Nav from './components/Nav/Nav';
+import TopNav from './components/Nav/TopNav';
+import BottomNav from './components/Nav/BottomNav';
 import Newsfeed from './components/Newsfeed/Newsfeed';
+import Portfolio from './components/Portfolio/Portfolio';
 import Lists from './components/Lists/Lists';
 import './App.scss';
 
 function App() {
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+
+  const updateMedia = () => {
+    setIsDesktop(window.innerWidth > 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', updateMedia);
+    return () => window.removeEventListener('resize', updateMedia);
+  }, []);
   return (
-    <div className="App">
+    <>
       <Router>
         <header className="app__header">
-          <Nav />
+          {isDesktop ? <TopNav /> : <BottomNav />}
         </header>
         <Switch>
-          <main className="app__body">
-            <div className="app__container">
-              <Route exact path="/" component={Newsfeed}>
-                <Newsfeed />
-                <Lists />
-              </Route>
-            </div>
+          <main className="app__container">
+            <Route exact path="/" component={Newsfeed}>
+              <Newsfeed />
+              <Portfolio />
+              <Lists />
+            </Route>
           </main>
         </Switch>
       </Router>
-    </div>
+    </>
   );
 }
 export default App;

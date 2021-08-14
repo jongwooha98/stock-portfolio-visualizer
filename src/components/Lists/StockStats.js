@@ -1,7 +1,7 @@
 import React from 'react';
-import '../sass/_stats.scss';
+import './_lists.scss';
 
-function StatsRow(props) {
+function StockStats(props) {
   const percentage = ((props.price - props.openPrice) / props.openPrice) * 100;
   const getModal = () => {};
   return (
@@ -32,4 +32,4 @@ function StatsRow(props) {
   );
 }
 
-export default StatsRow;
+export default StockStats;
