@@ -1,0 +1,32 @@
+@import '../../sass/_variables.scss';
+@import '../../sass/_mixins.scss';
+
+.topnav__wrapper {
+  background-color: #fff;
+  color: $color-text;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+.topnav__logo {
+  margin-left: 48px;
+}
+
+.topnav__menuItems {
+  margin-right: 48px;
+  a {
+    font-weight: bold;
+    color: $color-text;
+    text-decoration: none;
+    padding: 0 10px;
+    &:hover,
+    &:active {
+      color: $color-blue;
+    }
+  }
+}
