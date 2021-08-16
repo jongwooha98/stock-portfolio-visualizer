@@ -10,4 +10,5 @@
 
 # Visuals
 
-(Chart)[https://www.chartjs.org/docs/latest/]
+(Material UI)[https://material-ui.com/]
+(Chart.js)[https://www.chartjs.org/docs/latest/]
