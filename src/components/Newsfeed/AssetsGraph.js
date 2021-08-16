@@ -57,13 +57,11 @@ function AssetsGraph({ graphData, setGraphData }) {
       currentLabel.push(date);
       currentData.push(value);
     }
-    // console.log(currentLabel, currentData);
     setGraphData({
       labels: currentLabel,
       data: currentData,
     });
   };
-  console.log(graphData.data);
   useEffect(() => {
     generateData();
   }, []);

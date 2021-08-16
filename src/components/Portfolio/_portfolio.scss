@@ -1,0 +1,76 @@
+@import '../../sass/_variables.scss';
+@import '../../sass/_mixins.scss';
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 24px;
+  align-items: center;
+  cursor: pointer;
+}
+.row:hover {
+  background-color: $color-gray;
+}
+
+.row__intro > h1 {
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 2px;
+}
+
+.row__intro > p {
+  font-size: 12px;
+}
+
+.row__numbers {
+  text-align: end;
+  font-weight: 500;
+}
+
+.row__price {
+  padding-bottom: 4px;
+}
+
+.row__percentage {
+  color: $color-gray;
+}
+.row__percentage-positive {
+  color: $color-blue;
+}
+.row__percentage-negative {
+  color: $color-red;
+}
+
+// @include --viewportMd {
+//   .lists {
+//     flex: 0.3;
+//   }
+// }
+
+// modal
+.myStocks-modal {
+  display: flex;
+  flex-flow: column;
+  // align-items: center;
+  // justify-content: center;
+  .header {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+  }
+  .close-button {
+    cursor: pointer;
+  }
+  .shares {
+    display: flex;
+    flex-flow: row;
+    align-self: center;
+    .shares__current {
+      padding: 0 10px;
+    }
+    .shares__update {
+      cursor: pointer;
+    }
+  }
+}
