@@ -1,14 +1,21 @@
-### Stock portfolio app
+# Stock portfolio app
 
-# Stock Information
+### Made with
 
-(Finnhub)[https://finnhub.io/docs/api/]
+- [React](https://reactjs.org/)
+- JavaScript
+- [SASS](https://sass-lang.com/)
 
-# Database
 
-(Cloud Firestore)[https://firebase.google.com/docs/firestore]
+### Stock Information
 
-# Visuals
+[Finnhub](https://finnhub.io/docs/api/)
 
-(Material UI)[https://material-ui.com/]
-(Chart.js)[https://www.chartjs.org/docs/latest/]
+### Database
+
+[Cloud Firestore](https://firebase.google.com/docs/firestore)
+
+### Visuals
+
+- [Material UI](https://material-ui.com/)
+- [Chart.js](https://www.chartjs.org/docs/latest/)
