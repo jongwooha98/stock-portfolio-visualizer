@@ -1,76 +1,161 @@
 @import '../../sass/_variables.scss';
 @import '../../sass/_mixins.scss';
 
-.row {
+.portfolio {
+}
+
+@include --viewportMd {
+  .portfolio {
+    display: flex;
+    flex-flow: row;
+  }
+  .portfolio__pie-chart {
+    flex-grow: 40%;
+  }
+  .portfolio__stocks {
+    // flex: 90%;
+  }
+}
+// Portfolio Pie Chart
+.portfolio__pie-chart {
   display: flex;
-  justify-content: space-between;
-  height: 60px;
-  padding: 0 24px;
+  flex-flow: column;
   align-items: center;
-  cursor: pointer;
-}
-.row:hover {
-  background-color: $color-gray;
+  gap: 1rem;
 }
 
-.row__intro > h1 {
-  font-size: 16px;
-  font-weight: bold;
-  padding-bottom: 2px;
+.portfolio__stocks {
+  @include --box-shadow;
 }
-
-.row__intro > p {
-  font-size: 12px;
-}
-
-.row__numbers {
-  text-align: end;
+.portfolio__stocks__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #42494d;
+  padding: 20px 20px 10px 20px;
   font-weight: 500;
 }
+.portfolio__stocks__list {
+  font-size: $size-small;
+}
+.portfolio__stock {
+  .row {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 24px;
+    align-items: center;
+    cursor: pointer;
 
-.row__price {
-  padding-bottom: 4px;
-}
+    .row:hover {
+      background-color: $color-gray;
+    }
 
-.row__percentage {
-  color: $color-gray;
-}
-.row__percentage-positive {
-  color: $color-blue;
-}
-.row__percentage-negative {
-  color: $color-red;
-}
+    .row__intro > h1 {
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 2px;
+    }
 
+    .row__intro > p {
+      font-size: 12px;
+    }
+
+    .row__numbers {
+      text-align: end;
+      font-weight: 500;
+    }
+
+    .row__price {
+      padding-bottom: 4px;
+    }
+
+    .row__percentage {
+      color: $color-gray;
+    }
+    .row__percentage-positive {
+      color: $color-blue;
+    }
+    .row__percentage-negative {
+      color: $color-red;
+    }
+  }
+}
 // @include --viewportMd {
 //   .lists {
 //     flex: 0.3;
 //   }
 // }
 
-// modal
-.myStocks-modal {
+// AddPortfolioStock
+.add-stock__modal {
   display: flex;
   flex-flow: column;
-  // align-items: center;
-  // justify-content: center;
-  .header {
+  .add-stock__form {
     display: flex;
-    flex-flow: row;
-    justify-content: space-between;
+    flex-flow: column;
+    gap: 1rem;
   }
   .close-button {
     cursor: pointer;
+    align-self: flex-end;
   }
-  .shares {
+}
+
+// modal
+.myStocks-modal {
+  display: flex;
+  flex-direction: column;
+  .close-button {
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  .myStocks-modal__content {
     display: flex;
-    flex-flow: row;
-    align-self: center;
-    .shares__current {
-      padding: 0 10px;
+    flex-flow: column;
+    align-items: center;
+    .header {
     }
-    .shares__update {
-      cursor: pointer;
+
+    .shares {
+      display: flex;
+      flex-flow: row;
+      align-self: center;
+      align-items: center;
+      .shares__current {
+        display: flex;
+        flex-flow: column;
+
+        text-align: center;
+        padding: 0 10px;
+      }
+      .shares__update {
+        cursor: pointer;
+        &:hover {
+          color: $color-darkgray;
+        }
+      }
+    }
+  }
+}
+
+// Remove from portfolio
+.remove-from-portfolio {
+  align-self: flex-end;
+}
+.remove-from-portfolio__modal {
+  display: flex;
+  flex-direction: column;
+  .close-button {
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  .modal__content {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+    .selection-buttons {
+      align-self: flex-end;
     }
   }
 }

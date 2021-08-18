@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './_portfolio.scss';
 import { Pie } from 'react-chartjs-2';
+import { Button } from '@material-ui/core';
+import { updatePieChart } from './updatePieChart';
 
 function commafy(num) {
   var str = num.toString().split('.');
@@ -11,60 +14,63 @@ function commafy(num) {
   }
   return str.join('.');
 }
-function random_rgb() {
-  var o = Math.round,
-    r = Math.random,
-    s = 255;
-  return 'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')';
-}
 
 function PortfolioPieChart({ myStocks }) {
-  const [myCurrentStocks, setMyCurrentStocks] = useState({
-    ticker: [],
-    shares: [],
-    currentPrice: [],
-    currentValue: [],
-    pieColor: [],
-  });
-
-  const updatePieChart = () => {
-    let updatedTicker = myStocks.map((stock) => stock.data.ticker);
-    let updatedShares = myStocks.map((stock) => stock.data.shares);
-    let updatedPrice = myStocks.map();
-    setMyCurrentStocks({
-      ticker: updatedTicker,
-      shares: [],
-      currentPrice: [],
-      currentValue: [],
-      pieColor: [],
-    });
+  const [myCurrentStocks, setMyCurrentStocks] = useState({});
+  const handleUpdate = () => {
+    const updatedData = updatePieChart(myStocks);
+    setMyCurrentStocks(updatedData);
   };
+  useEffect(() => {
+    const updatedData = updatePieChart(myStocks);
+    setMyCurrentStocks(updatedData);
+  }, [myStocks]);
 
   const data = {
     labels: myCurrentStocks.ticker,
     datasets: [
       {
-        label: 'My First Dataset',
+        label: 'My Portfolio',
         data: myCurrentStocks.currentValue,
-        backgroundColor: myCurrentStocks.pieColor,
+        backgroundColor: myCurrentStocks.color,
         hoverOffset: 4,
       },
     ],
   };
-  console.log(myCurrentStocks);
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      datalabels: {
+        formatter: (value, context) => {
+          return context.dataIndex + ': ' + Math.round(value * 100) + '%';
+        },
+        color: '#fff',
+      },
+    },
+  };
+
   return (
-    <div>
+    <>
       <Pie
         data={data}
-        // options={pieOptions}
+        options={options}
         // ref={(input) => {
         //   chartInstance = input;
         // }}
+        maxHeight="760"
+        maxWidth="760"
       />
-      <button onClick={updatePieChart}>Update</button>
-      <div>{myCurrentStocks.ticker}</div>
+      <Button
+        onClick={() => handleUpdate()}
+        variant="contained"
+        color="primary"
+      >
+        Update
+      </Button>
       {/* current stock holdings */}
-    </div>
+    </>
   );
 }
 

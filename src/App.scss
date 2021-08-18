@@ -59,8 +59,7 @@ input[type='reset'] {
 
 @include --viewportMd {
   .app__container {
-    flex-flow: row wrap;
-    margin: 60px auto;
+    margin: $header-height auto;
     width: 90%;
     // justify-content: center;
   }
@@ -69,5 +68,6 @@ input[type='reset'] {
 @include --viewportLg {
   .app__container {
     width: 80%;
+    margin: $header-height auto;
   }
 }
