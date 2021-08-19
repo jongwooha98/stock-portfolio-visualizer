@@ -2,6 +2,8 @@
 @import '../../sass/_mixins.scss';
 
 .portfolio {
+  display: flex;
+  flex-flow: column wrap;
   gap: 2rem;
 }
 
@@ -55,6 +57,7 @@
     display: flex;
     justify-content: space-between;
     height: 60px;
+    margin-bottom: 5px;
     padding: 0 24px;
     align-items: center;
     cursor: pointer;

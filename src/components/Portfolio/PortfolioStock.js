@@ -38,7 +38,9 @@ function PortfolioStock(props) {
     setShareCount((prevState) => prevState + 1);
   };
   const removeShare = () => {
-    setShareCount((prevState) => prevState - 1);
+    shareCount === 1
+      ? setShareCount(1)
+      : setShareCount((prevState) => prevState - 1);
   };
 
   // Modal
@@ -70,7 +72,11 @@ function PortfolioStock(props) {
 
         <div>
           <h1>{props?.ticker}</h1>
-          <p>{shareCount && shareCount + ' shares'}</p>
+          <p>
+            {shareCount && shareCount > 1
+              ? `${shareCount} shares`
+              : `${shareCount} share`}
+          </p>
         </div>
       </div>
 
@@ -111,7 +117,7 @@ function PortfolioStock(props) {
               />
               <div className="shares__current">
                 <span>{shareCount && shareCount}</span>
-                <span>shares</span>
+                <span>{shareCount > 1 ? `shares` : `share`}</span>
               </div>
               <AddIcon
                 onClick={addShare}

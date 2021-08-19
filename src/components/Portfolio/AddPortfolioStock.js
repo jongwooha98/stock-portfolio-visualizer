@@ -33,30 +33,39 @@ function AddPortfolioStock() {
     shares: '',
   };
   const [newStock, setNewStock] = useState(initialState);
+  const [isShareInputValid, setIsShareInputValid] = useState(true);
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
+
     if (name === 'ticker') {
       value = value.toUpperCase();
     }
     setNewStock({ ...newStock, [name]: value });
+    if (value <= 0) {
+      setIsShareInputValid(false);
+    } else {
+      setIsShareInputValid(true);
+    }
   };
   const addNewStock = () => {
-    const randomColor = random_rgb();
+    if (isShareInputValid) {
+      const randomColor = random_rgb();
 
-    const data = {
-      ticker: newStock.ticker,
-      shares: newStock.shares / 1,
-      pieColor: randomColor,
-    };
-    Crud.create(data)
-      .then(() => {
-        console.log('success: new stock added');
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-    setNewStock(initialState);
+      const data = {
+        ticker: newStock.ticker,
+        shares: newStock.shares / 1,
+        pieColor: randomColor,
+      };
+      Crud.create(data)
+        .then(() => {
+          console.log('success: new stock added');
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      setNewStock(initialState);
+    }
   };
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,6 +74,7 @@ function AddPortfolioStock() {
   }
   function closeModal(e) {
     setNewStock(initialState);
+    setIsShareInputValid(true);
     e.stopPropagation();
     setIsModalOpen(false);
   }
@@ -88,6 +98,7 @@ function AddPortfolioStock() {
               id="add-stock__ticker"
               className="add-stock__ticker"
               label="Ticker"
+              variant="outlined"
               onChange={handleInputChange}
               type="text"
               name="ticker"
@@ -96,10 +107,13 @@ function AddPortfolioStock() {
             <TextField
               id="add-stock__shares"
               label="Shares"
+              variant="outlined"
               onChange={handleInputChange}
               type="number"
               name="shares"
               value={newStock.shares}
+              error={!isShareInputValid ? true : false}
+              helperText="Please add more than one share"
             />
             <Button
               onClick={() => {
