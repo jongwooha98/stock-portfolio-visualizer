@@ -2,18 +2,30 @@
 @import '../../sass/_mixins.scss';
 
 .portfolio {
+  gap: 2rem;
 }
 
 @include --viewportMd {
   .portfolio {
     display: flex;
     flex-flow: row;
+    justify-content: space-around;
   }
   .portfolio__pie-chart {
-    flex-grow: 40%;
+    max-width: 500px;
+    height: auto;
   }
   .portfolio__stocks {
-    // flex: 90%;
+    flex-grow: 0.6;
+  }
+}
+@include --viewportLg {
+  .portfolio__pie-chart {
+    max-width: 600px;
+    height: auto;
+  }
+  .portfolio__stocks {
+    flex-grow: 0.4;
   }
 }
 // Portfolio Pie Chart
@@ -39,44 +51,49 @@
   font-size: $size-small;
 }
 .portfolio__stock {
-  .row {
+  .portfolio__stock__container {
     display: flex;
     justify-content: space-between;
     height: 60px;
     padding: 0 24px;
     align-items: center;
     cursor: pointer;
-
-    .row:hover {
+    &:hover {
       background-color: $color-gray;
     }
 
-    .row__intro > h1 {
-      font-size: 16px;
-      font-weight: bold;
-      padding-bottom: 2px;
+    .intro {
+      display: flex;
+      flex-direction: row;
+      .company-logo {
+        margin-right: 10px;
+      }
+      h1 {
+        font-size: $size-large;
+        font-weight: bold;
+        padding-bottom: 2px;
+      }
+      p {
+        font-size: 12px;
+      }
     }
 
-    .row__intro > p {
-      font-size: 12px;
-    }
-
-    .row__numbers {
+    .numbers {
       text-align: end;
       font-weight: 500;
     }
 
-    .row__price {
+    .current-price {
       padding-bottom: 4px;
     }
 
-    .row__percentage {
+    .percentage {
       color: $color-gray;
     }
-    .row__percentage-positive {
+    .percentage--positive {
       color: $color-blue;
     }
-    .row__percentage-negative {
+    .percentage--negative {
       color: $color-red;
     }
   }

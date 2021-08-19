@@ -22,10 +22,12 @@ function Portfolio({ myStocks }) {
               <PortfolioStock
                 key={stock.id}
                 id={stock.id}
-                name={stock.data.ticker}
-                openPrice={stock.info.o}
+                ticker={stock.data.ticker}
+                name={stock.info.companyProfile2.name}
+                logo={stock.info.companyProfile2.logo}
+                openPrice={stock.info.quote.o}
                 volume={stock.data.shares}
-                price={stock.info.c}
+                price={stock.info.quote.c}
               />
             ))}
           </div>

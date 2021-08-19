@@ -32,33 +32,47 @@ function App() {
     return () => window.removeEventListener('resize', updateMedia);
   }, []);
 
+  // Finnhub
   const [myStocks, setMyStocks] = useState([]);
-  // const getStockQuote = (ticker) => {
-  //   finnhubClient.quote(ticker, (error, data, response) => {
-  //     setMyStocks({
-  //       info: data,
-  //     });
-  //   });
-  //   console.log(myStocks);
-  // };
+  const getStockInfo = (ticker) => {
+    const quote = `${BASE_URL}/quote?symbol=${ticker}&token=${TOKEN}`;
+    const companyProfile2 = `${BASE_URL}/stock/profile2?symbol=${ticker}&token=${TOKEN}`;
 
-  const getStockQuote = (ticker) => {
+    const getQuote = axios.get(quote);
+    const getCompanyProfile2 = axios.get(companyProfile2);
+
     return axios
-      .get(`${BASE_URL}/quote?symbol=${ticker}&token=${TOKEN}`)
-      .catch((error) => {
-        console.error('Error', error.message);
+      .all([getQuote, getCompanyProfile2])
+      .then(
+        axios.spread((...response) => {
+          const responseQuote = response[0].data;
+          const responseCompanyProfile2 = response[1].data;
+
+          return {
+            quote: responseQuote,
+            companyProfile2: responseCompanyProfile2,
+          };
+        })
+      )
+      .catch((errors) => {
+        console.error(errors);
       });
+    // return axios
+    //     .get(quote)
+    //     .catch((error) => {
+    //       console.error('Error', error.message);
+    //     });
   };
   const onDataChange = (items) => {
     let promises = [];
     let tempData = [];
     items.forEach((item) => {
       promises.push(
-        getStockQuote(item.data().ticker).then((res) => {
+        getStockInfo(item.data().ticker).then((response) => {
           tempData.push({
             id: item.id,
             data: item.data(),
-            info: res.data,
+            info: response,
           });
         })
       );
@@ -71,75 +85,11 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = Crud.getAll().onSnapshot(onDataChange);
-
     return () => {
       unsubscribe();
     };
   }, []);
-  // console.log(myStocks);
-
-  // Finnhub
-  // const [stocksData, setStocksData] = useState([]);
-  // const [myStocks, setMyStocks] = useState([]);
-  // get stock data from finnhub
-  // const getStocksData = (stock) => {
-  //   return axios.get(`${BASE_URL}${stock}&token=${TOKEN}`).catch((error) => {
-  //     console.error('Error', error.message);
-  //   });
-  // };
-
-  // get my stock data from firestore
-  // const getMyStocks = () => {
-  //   db.collection('myStocks').onSnapshot((snapshot) => {
-  //     let promises = [];
-  //     let tempData = [];
-  //     snapshot.docs.forEach((doc) => {
-  //       promises.push(
-  //         getStocksData(doc.data().ticker).then((res) => {
-  //           tempData.push({
-  //             id: doc.id,
-  //             data: doc.data(),
-  //             info: res.data,
-  //           });
-  //         })
-  //       );
-  //     });
-  //     Promise.all(promises).then(() => {
-  //       console.log(tempData);
-  //       setMyStocks(tempData);
-  //     });
-  //   });
-  // };
-  // useEffect(() => {
-  //   let testData = [];
-  //   const stocksList = [
-  //     'AAPL',
-  //     'MSFT',
-  //     'TSLA',
-  //     'FB',
-  //     'BABA',
-  //     'UBER',
-  //     'DIS',
-  //     'SBUX',
-  //   ];
-
-  //   getMyStocks();
-  //   let promises = [];
-  //   stocksList.map((stock) => {
-  //     promises.push(
-  //       getStocksData(stock).then((res) => {
-  //         testData.push({
-  //           name: stock,
-  //           ...res.data,
-  //         });
-  //       })
-  //     );
-  //   });
-
-  //   Promise.all(promises).then(() => {
-  //     setStocksData(testData);
-  //   });
-  // }, []);
+  console.log(myStocks);
   return (
     <>
       <Router>

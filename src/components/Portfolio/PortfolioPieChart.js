@@ -16,6 +16,7 @@ function commafy(num) {
 }
 
 function PortfolioPieChart({ myStocks }) {
+  console.log(myStocks);
   const [myCurrentStocks, setMyCurrentStocks] = useState({});
   const handleUpdate = () => {
     const updatedData = updatePieChart(myStocks);
@@ -25,7 +26,7 @@ function PortfolioPieChart({ myStocks }) {
     const updatedData = updatePieChart(myStocks);
     setMyCurrentStocks(updatedData);
   }, [myStocks]);
-
+  console.log(myCurrentStocks);
   const data = {
     labels: myCurrentStocks.ticker,
     datasets: [
@@ -38,6 +39,7 @@ function PortfolioPieChart({ myStocks }) {
     ],
   };
   const options = {
+    responsive: true,
     plugins: {
       legend: {
         display: false,
