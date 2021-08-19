@@ -1,15 +1,21 @@
 import React from 'react';
 import './_portfolio.scss';
-
 import PortfolioPieChart from './PortfolioPieChart';
 import PortfolioStock from './PortfolioStock';
 import AddPortfolioStock from './AddPortfolioStock';
-
+import { Alert } from '@material-ui/lab';
 function Portfolio({ myStocks }) {
+  console.log(myStocks);
   return (
     <section className="portfolio">
       <div className="portfolio__pie-chart">
-        <PortfolioPieChart myStocks={myStocks} />
+        {myStocks.length ? (
+          <PortfolioPieChart myStocks={myStocks} />
+        ) : (
+          <Alert severity="info">
+            Add stocks and start visualizing your portfolio!
+          </Alert>
+        )}
       </div>
       <div className="portfolio__stocks">
         <div className="portfolio__stocks__header">
