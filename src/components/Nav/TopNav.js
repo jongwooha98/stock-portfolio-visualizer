@@ -10,7 +10,6 @@ function TopNav() {
       </div>
 
       <div className="topnav__menuItems">
-        <a href="/">Free Stocks</a>
         <a href="/">PortFolio</a>
         <a href="/">Cash</a>
         <a href="/">Messages</a>
