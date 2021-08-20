@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "chart.js": "^3.5.0",
     "chartjs-adapter-luxon": "^1.0.0",
+    "chartjs-plugin-datalabels": "^2.0.0",
     "finnhub": "^1.2.5",
     "firebase": "^8.9.1",
     "luxon": "^2.0.2",
