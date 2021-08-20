@@ -11,7 +11,7 @@
   .portfolio {
     display: flex;
     flex-flow: row;
-    justify-content: space-around;
+    justify-content: center;
   }
   .portfolio__pie-chart {
     max-width: 500px;
@@ -35,6 +35,7 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -70,6 +71,9 @@
       flex-direction: row;
       .company-logo {
         margin-right: 10px;
+        img.MuiAvatar-img {
+          object-fit: contain !important;
+        }
       }
       h1 {
         font-size: $size-large;
@@ -134,9 +138,23 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    .header {
+    .logo {
+      height: 3rem;
+      /* align-self: flex-start; */
+      width: auto;
+      margin-bottom: 0.5rem;
+      img {
+        height: 100%;
+        width: 100%;
+      }
     }
-
+    .header {
+      padding: 0.5rem 0;
+    }
+    .chart {
+      height: 400px;
+      width: 200px;
+    }
     .shares {
       display: flex;
       flex-flow: row;

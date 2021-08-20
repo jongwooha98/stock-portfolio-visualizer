@@ -2,22 +2,37 @@ import React, { useState, useEffect } from 'react';
 import './_portfolio.scss';
 import { Pie } from 'react-chartjs-2';
 import { Button } from '@material-ui/core';
-import { updatePieChart } from './updatePieChart';
+// import { updatePieChart } from './updatePieChart';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-function commafy(num) {
-  var str = num.toString().split('.');
-  if (str[0].length >= 5) {
-    str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
-  }
-  if (str[1] && str[1].length >= 5) {
-    str[1] = str[1].replace(/(\d{3})/g, '$1 ');
-  }
-  return str.join('.');
-}
+// function commafy(num) {
+//   var str = num.toString().split('.');
+//   if (str[0].length >= 5) {
+//     str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+//   }
+//   if (str[1] && str[1].length >= 5) {
+//     str[1] = str[1].replace(/(\d{3})/g, '$1 ');
+//   }
+//   return str.join('.');
+// }
 
 function PortfolioPieChart({ myStocks }) {
   console.log(myStocks);
   const [myCurrentStocks, setMyCurrentStocks] = useState({});
+
+  const updatePieChart = (props) => {
+    const ticker = props.map((stock) => stock.data.ticker);
+    const shares = props.map((stock) => stock.data.shares);
+    const color = props.map((stock) => stock.data.pieColor);
+    const currentPrice = props.map((stock) => stock.info.quote.c);
+    const currentValue = [];
+    for (let i = 0; i < currentPrice.length; i++) {
+      currentValue.push(shares[i] * currentPrice[i]);
+    }
+
+    return { ticker, shares, color, currentPrice, currentValue };
+  };
+
   const handleUpdate = () => {
     const updatedData = updatePieChart(myStocks);
     setMyCurrentStocks(updatedData);
@@ -27,6 +42,7 @@ function PortfolioPieChart({ myStocks }) {
     setMyCurrentStocks(updatedData);
   }, [myStocks]);
   console.log(myCurrentStocks);
+
   const data = {
     labels: myCurrentStocks.ticker,
     datasets: [
@@ -39,31 +55,37 @@ function PortfolioPieChart({ myStocks }) {
     ],
   };
   const options = {
-    responsive: true,
+    // responsive: true,
     plugins: {
       legend: {
         display: false,
       },
       datalabels: {
+        display: true,
+
         formatter: (value, context) => {
-          return context.dataIndex + ': ' + Math.round(value * 100) + '%';
+          let datasets = context.chart.data.datasets;
+          if (datasets.indexOf(context.dataset) === datasets.length - 1) {
+            let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+            let percentage = Math.round((value / sum) * 100) + '%';
+            let label = context.chart.data.labels[context.dataIndex];
+
+            return [label, percentage];
+          } else {
+            return '';
+          }
         },
         color: '#fff',
+        // offset: 'start',
       },
     },
   };
 
   return (
     <>
-      <Pie
-        data={data}
-        options={options}
-        // ref={(input) => {
-        //   chartInstance = input;
-        // }}
-        maxHeight="760"
-        maxWidth="760"
-      />
+      <div>
+        <Pie data={data} options={options} plugins={[ChartDataLabels]} />
+      </div>
       <Button
         onClick={() => handleUpdate()}
         variant="contained"
