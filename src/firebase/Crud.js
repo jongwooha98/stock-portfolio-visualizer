@@ -1,4 +1,4 @@
-import firebase from './firebase';
+// import firebase from './firebase';
 import { db } from './firebase';
 
 const myStocksDb = db.collection('/myStocks');

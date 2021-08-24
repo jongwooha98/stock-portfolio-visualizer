@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './_portfolio.scss';
+import Finnhub from '../../finnhub/Finnhub';
 import Crud from '../../firebase/Crud';
-import { Button, TextField } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import Modal from 'react-modal';
+import { Dialog, IconButton, Button, TextField } from '@material-ui/core';
 
 function random_rgb() {
   var o = Math.round,
@@ -13,19 +12,6 @@ function random_rgb() {
     s = 255;
   return 'rgb(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ')';
 }
-
-const customStyles = {
-  content: {
-    // width: '80%',
-    maxWidth: '768px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 
 function AddPortfolioStock() {
   const initialState = {
@@ -37,10 +23,11 @@ function AddPortfolioStock() {
 
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-
     if (name === 'ticker') {
       value = value.toUpperCase();
     }
+    // Create function checking if ticker already exist in db.
+    // If so, update shars instead of adding new doc to db.
     setNewStock({ ...newStock, [name]: value });
     if (value <= 0) {
       setIsShareInputValid(false);
@@ -50,23 +37,30 @@ function AddPortfolioStock() {
   };
   const addNewStock = () => {
     if (isShareInputValid) {
-      const randomColor = random_rgb();
+      Finnhub.getCompanyProfile2(newStock.ticker).then((response) => {
+        const randomColor = random_rgb();
+        const data = {
+          ticker: newStock.ticker,
+          shares: newStock.shares / 1,
+          name: response.name,
+          logo: response.logo,
+          industry: response.industry,
+          pieColor: randomColor,
+        };
+        console.log(data);
+        Crud.create(data)
+          .then(() => {
+            console.log('success: new stock added');
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      });
 
-      const data = {
-        ticker: newStock.ticker,
-        shares: newStock.shares / 1,
-        pieColor: randomColor,
-      };
-      Crud.create(data)
-        .then(() => {
-          console.log('success: new stock added');
-        })
-        .catch((e) => {
-          console.log(e);
-        });
       setNewStock(initialState);
     }
   };
+
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   function openModal() {
@@ -75,7 +69,7 @@ function AddPortfolioStock() {
   function closeModal(e) {
     setNewStock(initialState);
     setIsShareInputValid(true);
-    e.stopPropagation();
+
     setIsModalOpen(false);
   }
 
@@ -85,14 +79,12 @@ function AddPortfolioStock() {
         <AddIcon />
       </IconButton>
 
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Add new stock"
-      >
+      <Dialog open={isModalOpen} onClose={closeModal}>
         <div className="add-stock__modal">
-          <CloseIcon onClick={closeModal} className="close-button" />
+          <IconButton onClick={closeModal} className="close-button">
+            <CloseIcon />
+          </IconButton>
+
           <form noValidate autoComplete="off" className="add-stock__form">
             <TextField
               id="add-stock__ticker"
@@ -126,7 +118,7 @@ function AddPortfolioStock() {
             </Button>
           </form>
         </div>
-      </Modal>
+      </Dialog>
     </>
   );
 }

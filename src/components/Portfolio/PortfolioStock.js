@@ -1,38 +1,21 @@
 import React, { useState } from 'react';
 import './_portfolio.scss';
 import RemoveFromPortfolio from './RemoveFromPortfolio';
+// import ChartWidget from './ChartWidget';
+import TradingViewWidget from 'react-tradingview-widget';
+
 import Crud from '../../firebase/Crud';
 // import ReactDom from 'react-dom';
-import Modal from 'react-modal';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import { Avatar } from '@material-ui/core';
+import { Dialog, Avatar, IconButton } from '@material-ui/core';
 
-const customStyles = {
-  content: {
-    // width: '80%',
-    // maxWidth: '768px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 function PortfolioStock(props) {
   const percentage = ((props.price - props.openPrice) / props.openPrice) * 100;
 
-  // add shares to firestore db
-  // const initialState = {
-  //   ticker: props.name,
-  //   shares: props.volume,
-  // };
   const initialShareCount = props.volume / 1;
-  // const [myStock, setMyStock] = useState(initialState);
   const [shareCount, setShareCount] = useState(initialShareCount);
-  // const [isSubmitted, setIsSubmitted] = useState(false);
 
   const addShare = () => {
     setShareCount((prevState) => prevState + 1);
@@ -45,10 +28,12 @@ function PortfolioStock(props) {
 
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-  function openModal() {
+
+  const handleClickOpen = () => {
     setIsModalOpen(true);
-  }
-  function closeModal(e) {
+  };
+
+  const handleClose = () => {
     const data = {
       ticker: props.ticker,
       shares: shareCount,
@@ -61,80 +46,117 @@ function PortfolioStock(props) {
       .catch((e) => {
         console.log(e);
       });
-    e.stopPropagation();
     setIsModalOpen(false);
-  }
-
+  };
   return (
-    <div className="portfolio__stock__container" onClick={openModal}>
-      <div className="intro">
-        <Avatar alt="" src={props.logo} className="company-logo" />
+    <>
+      <div className="portfolio__stock__container" onClick={handleClickOpen}>
+        <div className="intro">
+          <Avatar
+            alt=""
+            src={props.logo}
+            className="company-logo"
+            fontSize="inherit"
+          />
 
-        <div>
-          <h1>{props?.ticker}</h1>
-          <p>
-            {shareCount && shareCount > 1
-              ? `${shareCount} shares`
-              : `${shareCount} share`}
+          <div>
+            <h1>{props?.ticker}</h1>
+            <p>
+              {shareCount && shareCount > 1
+                ? `${shareCount} shares`
+                : `${shareCount} share`}
+            </p>
+          </div>
+        </div>
+
+        <div className="numbers">
+          <p className="current-price">{props.price}</p>
+
+          <p
+            className={
+              percentage > 0
+                ? 'percentage--positive'
+                : percentage < 0
+                ? 'percentage--negative'
+                : 'percentage'
+            }
+          >
+            {percentage > 0
+              ? `+${Number(percentage).toFixed(2)}%`
+              : `${Number(percentage).toFixed(2)}%`}
           </p>
         </div>
       </div>
-
-      <div className="numbers">
-        <p className="current-price">{props.price}</p>
-
-        <p
-          className={
-            percentage > 0
-              ? 'percentage--positive'
-              : percentage < 0
-              ? 'percentage--negative'
-              : 'percentage'
-          }
-        >
-          {percentage > 0
-            ? `+${Number(percentage).toFixed(2)}%`
-            : `${Number(percentage).toFixed(2)}%`}
-        </p>
-      </div>
-
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Stock detail"
-      >
+      <Dialog fullScreen open={isModalOpen} onClose={handleClose}>
         <div className="myStocks-modal">
-          <CloseIcon onClick={closeModal} className="close-button" />
+          <IconButton
+            className="close-button"
+            color="inherit"
+            onClick={handleClose}
+            aria-label="close"
+          >
+            <CloseIcon />
+          </IconButton>
           <div className="myStocks-modal__content">
             <div className="header">
-              <h2>{props.name}</h2>
-            </div>
-            <div className="shares">
-              <RemoveIcon
-                onClick={removeShare}
-                className="shares__update shares__remove"
+              <Avatar
+                alt=""
+                src={props.logo}
+                className="company-logo"
+                fontSize="inherit"
               />
-              <div className="shares__current">
-                <span>{shareCount && shareCount}</span>
-                <span>{shareCount > 1 ? `shares` : `share`}</span>
+
+              <h2 className="name">{props.name}</h2>
+            </div>
+            <div className="tradingview-widget">
+              <TradingViewWidget
+                symbol={props.ticker}
+                autosize="true"
+                interval="D"
+                timezone="Etc/UTC"
+                theme="light"
+                style="1"
+                locale="en"
+                toolbar_bg="#f1f3f6"
+                save_image="false"
+              />
+            </div>
+            <div className="footer">
+              <div style={{ width: '25%' }}>
+                &nbsp;
+                {/* empty for style purpose */}
               </div>
-              <AddIcon
-                onClick={addShare}
-                className="shares__update shares__add"
-              />
+              <div className="shares" style={{ width: '50%' }}>
+                <IconButton
+                  onClick={removeShare}
+                  className="shares__update shares__remove"
+                >
+                  <RemoveIcon />
+                </IconButton>
+
+                <div className="shares__current">
+                  <span>{shareCount && shareCount}</span>
+                  <span>{shareCount > 1 ? `shares` : `share`}</span>
+                </div>
+                <IconButton
+                  onClick={addShare}
+                  className="shares__update shares__add"
+                >
+                  <AddIcon />
+                </IconButton>
+              </div>
+              <div className="remove-from-portfolio" style={{ width: '25%' }}>
+                <RemoveFromPortfolio
+                  id={props.id}
+                  ticker={props.ticker}
+                  name={props.name}
+                />
+              </div>
             </div>
-          </div>
-          <div className="remove-from-portfolio">
-            <RemoveFromPortfolio
-              id={props.id}
-              ticker={props.ticker}
-              name={props.name}
-            />
           </div>
         </div>
-      </Modal>
-    </div>
+      </Dialog>
+    </>
   );
 }
 

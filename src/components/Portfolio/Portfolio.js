@@ -4,13 +4,16 @@ import PortfolioPieChart from './PortfolioPieChart';
 import PortfolioStock from './PortfolioStock';
 import AddPortfolioStock from './AddPortfolioStock';
 import { Alert } from '@material-ui/lab';
-function Portfolio({ myStocks }) {
-  console.log(myStocks);
+
+function Portfolio({ myStocks, updateStockInfo }) {
   return (
     <section className="portfolio">
       <div className="portfolio__pie-chart">
         {myStocks.length ? (
-          <PortfolioPieChart myStocks={myStocks} />
+          <PortfolioPieChart
+            myStocks={myStocks}
+            updateStockInfo={updateStockInfo}
+          />
         ) : (
           <Alert severity="info">
             Add stocks and start visualizing your portfolio!
@@ -29,11 +32,11 @@ function Portfolio({ myStocks }) {
                 key={stock.id}
                 id={stock.id}
                 ticker={stock.data.ticker}
-                name={stock.info.companyProfile2.name}
-                logo={stock.info.companyProfile2.logo}
-                openPrice={stock.info.quote.o}
                 volume={stock.data.shares}
-                price={stock.info.quote.c}
+                name={stock.data.name}
+                logo={stock.data.logo}
+                openPrice={stock.info.openPrice}
+                price={stock.info.currentPrice}
               />
             ))}
           </div>

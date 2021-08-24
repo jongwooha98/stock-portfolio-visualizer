@@ -16,7 +16,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 //   return str.join('.');
 // }
 
-function PortfolioPieChart({ myStocks }) {
+function PortfolioPieChart({ myStocks, updateStockInfo }) {
   console.log(myStocks);
   const [myCurrentStocks, setMyCurrentStocks] = useState({});
 
@@ -24,7 +24,7 @@ function PortfolioPieChart({ myStocks }) {
     const ticker = props.map((stock) => stock.data.ticker);
     const shares = props.map((stock) => stock.data.shares);
     const color = props.map((stock) => stock.data.pieColor);
-    const currentPrice = props.map((stock) => stock.info.quote.c);
+    const currentPrice = props.map((stock) => stock.info.currentPrice);
     const currentValue = [];
     for (let i = 0; i < currentPrice.length; i++) {
       currentValue.push(shares[i] * currentPrice[i]);
@@ -34,14 +34,16 @@ function PortfolioPieChart({ myStocks }) {
   };
 
   const handleUpdate = () => {
-    const updatedData = updatePieChart(myStocks);
-    setMyCurrentStocks(updatedData);
+    updateStockInfo();
+    // const updatedData = updatePieChart(myStocks);
+    // setMyCurrentStocks(updatedData);
+    console.log('updating manually...');
   };
   useEffect(() => {
     const updatedData = updatePieChart(myStocks);
     setMyCurrentStocks(updatedData);
-  }, [myStocks]);
-  console.log(myCurrentStocks);
+  }, []);
+  // console.log(myCurrentStocks);
 
   const data = {
     labels: myCurrentStocks.ticker,
