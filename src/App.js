@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import { HashLink as Link } from 'react-router-hash-link';
+// import { HashLink as Link } from 'react-router-hash-link';
 import TopNav from './components/Nav/TopNav';
 import BottomNav from './components/Nav/BottomNav';
 import Newsfeed from './components/Newsfeed/Newsfeed';
 import Portfolio from './components/Portfolio/Portfolio';
-import Watchlist from './components/Watchlist/Watchlist';
+// import Watchlist from './components/Watchlist/Watchlist';
 import './App.scss';
-import { db } from './firebase/firebase';
-import axios from 'axios';
+// import { db } from './firebase/firebase';
+// import axios from 'axios';
 import Crud from './firebase/Crud';
+import Finnhub from './finnhub/Finnhub';
+import { LinearProgress } from '@material-ui/core';
 
-// const finnhub = require('finnhub');
-
-// const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-// api_key.apiKey = 'c4absuqad3if7805a640';
-// const finnhubClient = new finnhub.DefaultApi();
-
-const TOKEN = 'c4absuqad3if7805a640';
-const BASE_URL = 'https://finnhub.io/api/v1';
+const customStyles = {
+  root: {
+    flexGrow: 1,
+  },
+  colorPrimary: {
+    background: '#fff',
+  },
+};
 
 function App() {
   // Responsive Navbar
@@ -26,70 +28,112 @@ function App() {
   const updateMedia = () => {
     setIsDesktop(window.innerWidth > 768);
   };
-
   useEffect(() => {
     window.addEventListener('resize', updateMedia);
     return () => window.removeEventListener('resize', updateMedia);
   }, []);
 
-  // Finnhub
+  // Finnhub API
+  // const TOKEN = 'c4absuqad3if7805a640';
+  // const BASE_URL = 'https://finnhub.io/api/v1';
+  const [isLoading, setIsLoading] = useState(true);
   const [myStocks, setMyStocks] = useState([]);
-  const getStockInfo = (ticker) => {
-    const quote = `${BASE_URL}/quote?symbol=${ticker}&token=${TOKEN}`;
-    const companyProfile2 = `${BASE_URL}/stock/profile2?symbol=${ticker}&token=${TOKEN}`;
+  // const getStockInfo = (ticker) => {
+  //   const quote = `${BASE_URL}/quote?symbol=${ticker}&token=${TOKEN}`;
 
-    const getQuote = axios.get(quote);
-    const getCompanyProfile2 = axios.get(companyProfile2);
+  //   const getQuote = axios.get(quote);
+  //   const getCompanyProfile2 = axios.get(companyProfile2);
 
-    return axios
-      .all([getQuote, getCompanyProfile2])
-      .then(
-        axios.spread((...response) => {
-          const responseQuote = response[0].data;
-          const responseCompanyProfile2 = response[1].data;
+  //   return axios
+  //     .all([getQuote, getCompanyProfile2])
+  //     .then(
+  //       axios.spread((...response) => {
+  //         const responseQuote = response[0].data;
+  //         const responseCompanyProfile2 = response[1].data;
 
-          return {
-            quote: responseQuote,
-            companyProfile2: responseCompanyProfile2,
-          };
-        })
-      )
-      .catch((errors) => {
-        console.error(errors);
+  //         return {
+  //           quote: responseQuote,
+  //           companyProfile2: responseCompanyProfile2,
+  //         };
+  //       })
+  //     )
+  //     .catch((errors) => {
+  //       console.log(errors);
+  //     });
+  // };
+  // const onDataChange = (items) => {
+  //   let promises = [];
+  //   let tempData = [];
+  //   items.forEach((item) => {
+  //     promises.push(
+  //       Finnhub.getQuote(item.data().ticker).then((response) => {
+  //         tempData.push({
+  //           id: item.id,
+  //           data: item.data(),
+  //           info: response,
+  //         });
+  //       })
+  //     );
+  //   });
+
+  //   Promise.all(promises).then(() => {
+  //     setMyStocks(tempData);
+  //   });
+  //   setIsLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   const unsubscribe = Crud.getAll().onSnapshot(onDataChange);
+  //   // const timer = setTimeout(() => {
+  //   //   setIsLoading(false);
+  //   // }, 2500);
+  //   return () => {
+  //     // clearTimeout(timer);
+  //     unsubscribe();
+  //   };
+  // }, []);
+  // console.log(myStocks);
+
+  const updateStockInfo = () => {
+    Crud.getAll().onSnapshot((docs) => {
+      let promises = [];
+      let tempData = [];
+      docs.forEach((doc) => {
+        promises.push(
+          Finnhub.getQuote(doc.data().ticker).then((response) => {
+            tempData.push({
+              id: doc.id,
+              data: doc.data(),
+              info: response,
+            });
+          })
+        );
       });
-    // return axios
-    //     .get(quote)
-    //     .catch((error) => {
-    //       console.error('Error', error.message);
-    //     });
-  };
-  const onDataChange = (items) => {
-    let promises = [];
-    let tempData = [];
-    items.forEach((item) => {
-      promises.push(
-        getStockInfo(item.data().ticker).then((response) => {
-          tempData.push({
-            id: item.id,
-            data: item.data(),
-            info: response,
-          });
-        })
-      );
-    });
-    Promise.all(promises).then(() => {
       console.log(tempData);
-      setMyStocks(tempData);
+
+      Promise.all(promises).then(() => {
+        setMyStocks(tempData);
+        setIsLoading(false);
+      });
     });
   };
-
   useEffect(() => {
-    const unsubscribe = Crud.getAll().onSnapshot(onDataChange);
+    updateStockInfo();
     return () => {
-      unsubscribe();
+      updateStockInfo();
     };
   }, []);
+  // useEffect(() => {
+  //   updateStockInfo();
+  // }, []);
+  // useEffect(() => {
+  //   window.addEventListener('mouseup', updateStockInfo);
+  //   return () => {
+  //     window.removeEventListener('mouseup', updateStockInfo);
+  //   };
+  // }, []);
   console.log(myStocks);
+
   return (
     <>
       <Router>
@@ -100,7 +144,25 @@ function App() {
           <main className="app__container">
             <Route exact path="/" component={Newsfeed}>
               {/* <Newsfeed /> */}
-              <Portfolio myStocks={myStocks} />
+              {isLoading ? (
+                <div className="app__loading-screen">
+                  <LinearProgress className={customStyles} />
+                  <div class="blockquote-wrapper">
+                    <div class="blockquote">
+                      <h1>
+                        The stock market is a device to transfer money from the
+                        impatient to the patient
+                      </h1>
+                      <h4>&mdash;Warren Buffet</h4>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Portfolio
+                  myStocks={myStocks}
+                  updateStockInfo={updateStockInfo}
+                />
+              )}
               {/* <Watchlist stocksData={stocksData} /> */}
             </Route>
           </main>
