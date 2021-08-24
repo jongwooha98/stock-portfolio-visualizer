@@ -14,11 +14,9 @@ function RemoveFromPortfolio(props) {
 
   // Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const openModal = () => {
     setIsModalOpen(true);
   };
-
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -28,14 +26,7 @@ function RemoveFromPortfolio(props) {
       <IconButton aria-label="delete" onClick={openModal}>
         <DeleteIcon />
       </IconButton>
-      <Dialog
-        open={isModalOpen}
-        onClose={closeModal}
-        // isOpen={isModalOpen}
-        // onRequestClose={closeModal}
-        // style={customStyles}
-        // contentLabel="Remove stock from portfolio"
-      >
+      <Dialog open={isModalOpen} onClose={closeModal}>
         <div className="remove-from-portfolio__modal">
           <IconButton onClick={closeModal} className="close-button">
             <CloseIcon />

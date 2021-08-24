@@ -35,8 +35,8 @@ function PortfolioPieChart({ myStocks, updateStockInfo }) {
 
   const handleUpdate = () => {
     updateStockInfo();
-    // const updatedData = updatePieChart(myStocks);
-    // setMyCurrentStocks(updatedData);
+    const updatedData = updatePieChart(myStocks);
+    setMyCurrentStocks(updatedData);
     console.log('updating manually...');
   };
   useEffect(() => {
