@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './_nav.scss';
 import { ReactComponent as Logo } from '../../assets/images/toss-logo.svg';
-import { HashLink as Link } from 'react-router-hash-link';
+// import { HashLink as Link } from 'react-router-hash-link';
 import { makeStyles } from '@material-ui/core/styles';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import PieChartIcon from '@material-ui/icons/PieChart';
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     marginBottom: '0px',
     width: '100vw',
     backgroundColor: '#fff',
-    zIndex: '1000',
+    zIndex: '999',
     boxShadow: '0 -1px 4px rgba(0, 0, 0, 0.15)',
   },
   nav: {
