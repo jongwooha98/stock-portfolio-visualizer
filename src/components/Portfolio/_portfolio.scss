@@ -2,6 +2,7 @@
 @import '../../sass/_mixins.scss';
 
 .portfolio {
+  padding: 10px;
   display: flex;
   flex-flow: column wrap;
   gap: 2rem;
@@ -105,16 +106,12 @@
     }
   }
 }
-// @include --viewportMd {
-//   .lists {
-//     flex: 0.3;
-//   }
-// }
 
 // AddPortfolioStock
 .add-stock__modal {
   display: flex;
   flex-flow: column;
+  padding: $mb-0-5;
   .add-stock__form {
     display: flex;
     flex-flow: column;
@@ -127,50 +124,65 @@
 }
 
 // modal
+
 .myStocks-modal {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  padding: $mb-0-5;
   .close-button {
-    cursor: pointer;
+    // cursor: pointer;
     align-self: flex-end;
   }
   .myStocks-modal__content {
+    height: 100%;
     display: flex;
     flex-flow: column;
     align-items: center;
-    .logo {
-      height: 3rem;
-      /* align-self: flex-start; */
-      width: auto;
-      margin-bottom: 0.5rem;
-      img {
-        height: 100%;
-        width: 100%;
-      }
-    }
     .header {
-      padding: 0.5rem 0;
-    }
-    .chart {
-      height: 400px;
-      width: 200px;
-    }
-    .shares {
       display: flex;
-      flex-flow: row;
-      align-self: center;
       align-items: center;
-      .shares__current {
-        display: flex;
-        flex-flow: column;
-
-        text-align: center;
-        padding: 0 10px;
+      gap: $mb-0-5;
+      margin-left: $mb-0-5;
+      margin-right: $mb-0-5;
+      margin-bottom: $mb-0-25;
+      .company-logo {
+        img.MuiAvatar-img {
+          object-fit: contain !important;
+        }
       }
-      .shares__update {
-        cursor: pointer;
-        &:hover {
-          color: $color-darkgray;
+      .name {
+        font-size: $size-h3;
+        @include --viewportMd {
+          font-size: $size-h2;
+        }
+      }
+    }
+    .tradingview-widget {
+      flex-grow: 1;
+      width: 100%;
+    }
+    .footer {
+      display: flex;
+      width: 100%;
+      .shares {
+        display: flex;
+        flex-flow: row;
+        align-self: center;
+        align-items: center;
+        justify-content: center;
+        .shares__current {
+          display: flex;
+          flex-flow: column;
+
+          text-align: center;
+          padding: 0 10px;
+        }
+        .shares__update {
+          cursor: pointer;
+          &:hover {
+            color: $color-darkgray;
+          }
         }
       }
     }
@@ -179,11 +191,13 @@
 
 // Remove from portfolio
 .remove-from-portfolio {
-  align-self: flex-end;
+  text-align: end;
 }
 .remove-from-portfolio__modal {
   display: flex;
   flex-direction: column;
+  padding: 0.5rem;
+
   .close-button {
     cursor: pointer;
     align-self: flex-end;
@@ -194,6 +208,8 @@
     gap: 1rem;
     .selection-buttons {
       align-self: flex-end;
+      display: flex;
+      gap: $mb-0-5;
     }
   }
 }
