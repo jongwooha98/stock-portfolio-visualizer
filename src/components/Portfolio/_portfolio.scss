@@ -39,9 +39,12 @@
   justify-content: center;
   gap: 1rem;
 }
-
+.portfolio__value {
+  margin-top: 1rem;
+}
 .portfolio__stocks {
   @include --box-shadow;
+  margin-bottom: 2rem;
 }
 .portfolio__stocks__header {
   display: flex;

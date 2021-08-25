@@ -88,11 +88,7 @@ function PortfolioPieChart({ myStocks, updateStockInfo }) {
       <div>
         <Pie data={data} options={options} plugins={[ChartDataLabels]} />
       </div>
-      <Button
-        onClick={() => handleUpdate()}
-        variant="contained"
-        color="primary"
-      >
+      <Button onClick={() => handleUpdate()} variant="outlined">
         Update
       </Button>
       {/* current stock holdings */}
