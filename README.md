@@ -4,6 +4,14 @@ One of the mobile apps I use the most in everyday life is [Toss](https://toss.im
 
 So, I made this stock portfolio app to satisfy my need: visualizing stock portfolio. 
 
+[Check out the app](https://stock-app-71e53.web.app/)
+
+*Currently not accepting any new account*
+
+<img width="400" alt="stock-portfolio-app-login" src="https://user-images.githubusercontent.com/18746327/130993995-7b5d17ba-1819-4968-9c76-ec6afb305844.png">
+<img width="400" alt="stock-portfolio-app-main" src="https://user-images.githubusercontent.com/18746327/130996338-0258eb01-c39e-4217-ade3-f0df11e94406.png">
+
+
 ## Made with
 
 The app is built with a bunch of React components, hooks, and more!
