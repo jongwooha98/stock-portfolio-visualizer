@@ -1,12 +1,14 @@
 import firebase from 'firebase';
+import 'firebase/auth';
+require('dotenv').config();
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBGxPJwCHawBzWZBpoh7mXkX3z0mQdZYDg',
-  authDomain: 'stock-app-71e53.firebaseapp.com',
-  projectId: 'stock-app-71e53',
-  storageBucket: 'stock-app-71e53.appspot.com',
-  messagingSenderId: '670709646286',
-  appId: '1:670709646286:web:acdd69aa3348033c3a219f',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -14,3 +16,5 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 const db = firebaseApp.firestore();
 
 export { db };
+
+export default firebaseApp;

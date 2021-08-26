@@ -1,6 +1,7 @@
 const axios = require('axios').default;
+require('dotenv').config();
 
-const TOKEN = 'c4absuqad3if7805a640';
+const TOKEN = process.env.REACT_APP_FINNHUB_TOKEN;
 const BASE_URL = 'https://finnhub.io/api/v1';
 
 const getQuote = async (ticker) => {
