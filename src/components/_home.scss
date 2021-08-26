@@ -1,0 +1,30 @@
+@import '../sass/_variables.scss';
+@import '../sass/_mixins.scss';
+
+.app__header {
+}
+.app__container {
+  display: flex;
+  flex-flow: column;
+  // padding: 20px;
+  // width: 80%;
+  gap: 40px;
+
+  color: $color-text;
+  // z-index: 50;
+}
+
+@include --viewportMd {
+  .app__container {
+    margin: $header-height auto;
+    width: 90%;
+    // justify-content: center;
+  }
+}
+
+@include --viewportLg {
+  .app__container {
+    width: 80%;
+    margin: $header-height auto;
+  }
+}
