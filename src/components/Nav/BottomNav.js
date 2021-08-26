@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './_nav.scss';
+import firebaseApp from '../../firebase/firebase';
+
 import { ReactComponent as Logo } from '../../assets/images/toss-logo.svg';
 // import { HashLink as Link } from 'react-router-hash-link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -86,6 +88,7 @@ function BottomNav() {
             root: classes.nav,
             selected: classes.selected,
           }}
+          onClick={() => firebaseApp.auth().signOut()}
         />
       </BottomNavigation>
     </div>

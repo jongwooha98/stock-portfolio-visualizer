@@ -1,5 +1,6 @@
 import React from 'react';
 import './_nav.scss';
+import firebaseApp from '../../firebase/firebase';
 import Logo from '../../assets/images/toss-logo.svg';
 
 function TopNav() {
@@ -10,10 +11,21 @@ function TopNav() {
       </div>
 
       <div className="topnav__menuItems">
-        <a href="/">PortFolio</a>
-        <a href="/">Cash</a>
-        <a href="/">Messages</a>
-        <a href="/">Account</a>
+        <a className="nav__link" href="/">
+          PortFolio
+        </a>
+        <a className="nav__link" href="/">
+          Cash
+        </a>
+        <a className="nav__link" href="/">
+          Messages
+        </a>
+        <button
+          className="nav__link"
+          onClick={() => firebaseApp.auth().signOut()}
+        >
+          Sign out
+        </button>
       </div>
     </div>
   );
