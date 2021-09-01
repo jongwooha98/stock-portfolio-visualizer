@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import './_portfolio.scss';
 import RemoveFromPortfolio from './RemoveFromPortfolio';
-// import ChartWidget from './ChartWidget';
 import TradingViewWidget from 'react-tradingview-widget';
-
 import Crud from '../../firebase/Crud';
-// import ReactDom from 'react-dom';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -40,7 +37,6 @@ function PortfolioStock(props) {
     };
     Crud.update(props.id, data)
       .then(() => {
-        // setIsSubmitted(true);
         console.log('update success');
       })
       .catch((e) => {
