@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { withRouter } from 'react-router';
 import firebaseApp from '../firebase/firebase';
+import { db } from '../firebase/firebase';
 import { Button, TextField } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import './_auth.scss';
@@ -15,7 +16,11 @@ const SignUp = ({ history }) => {
       try {
         await firebaseApp
           .auth()
-          .createUserWithEmailAndPassword(email.value, password.value);
+          .createUserWithEmailAndPassword(email.value, password.value)
+          .then((response) => {
+            const { uid, email } = response.user;
+            db.collection('users').doc(uid).set({ uid, email });
+          });
         history.push('/');
       } catch (error) {
         alert(error);
@@ -30,7 +35,7 @@ const SignUp = ({ history }) => {
       <form onSubmit={handleSignUp} className="signup__form">
         <TextField name="email" type="email" label="Email" />
         <TextField name="password" type="password" label="Password" />
-        <Button type="submit" variant="outlined" disabled>
+        <Button type="submit" variant="outlined">
           Sign Up
         </Button>
         <Alert severity="warning">
