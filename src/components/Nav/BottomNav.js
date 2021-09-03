@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import './_nav.scss';
+// import firebaseApp from '../../firebase/firebase';
+
 import firebaseApp from '../../firebase/firebase';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/actions/action';
 
 import { ReactComponent as Logo } from '../../assets/images/toss-logo.svg';
 // import { HashLink as Link } from 'react-router-hash-link';
@@ -37,6 +41,12 @@ const useStyles = makeStyles({
 function BottomNav() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(logout());
+    firebaseApp.auth().signOut();
+  };
 
   return (
     <div>
@@ -88,7 +98,7 @@ function BottomNav() {
             root: classes.nav,
             selected: classes.selected,
           }}
-          onClick={() => firebaseApp.auth().signOut()}
+          onClick={() => handleLogOut()}
         />
       </BottomNavigation>
     </div>

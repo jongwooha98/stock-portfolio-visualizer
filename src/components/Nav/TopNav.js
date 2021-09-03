@@ -1,9 +1,18 @@
 import React from 'react';
 import './_nav.scss';
-import firebaseApp from '../../firebase/firebase';
 import Logo from '../../assets/images/toss-logo.svg';
 
+import firebaseApp from '../../firebase/firebase';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/actions/action';
+
 function TopNav() {
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(logout());
+    firebaseApp.auth().signOut();
+  };
+
   return (
     <div className="topnav__wrapper">
       <div className="topnav__logo">
@@ -20,10 +29,7 @@ function TopNav() {
         <a className="nav__link" href="/">
           Messages
         </a>
-        <button
-          className="nav__link"
-          onClick={() => firebaseApp.auth().signOut()}
-        >
+        <button className="nav__link" onClick={() => handleLogOut()}>
           Sign out
         </button>
       </div>
