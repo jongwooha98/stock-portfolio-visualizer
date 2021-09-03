@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Route, Switch } from 'react-router-dom';
 import './_home.scss';
 import TopNav from './Nav/TopNav';
 import BottomNav from './Nav/BottomNav';
