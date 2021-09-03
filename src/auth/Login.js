@@ -1,10 +1,13 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import firebaseApp from '../firebase/firebase';
 import { AuthContext } from './Auth.js';
 import { LinearProgress, Button, TextField } from '@material-ui/core';
 import './_auth.scss';
+
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/action';
 
 const customStyles = {
   root: {
@@ -19,7 +22,6 @@ const Login = ({ history }) => {
     async (event) => {
       event.preventDefault();
       const { email, password } = event.target.elements;
-      console.log(email, password);
       try {
         await firebaseApp
           .auth()
@@ -33,10 +35,14 @@ const Login = ({ history }) => {
   );
 
   const { currentUser } = useContext(AuthContext);
-
-  if (currentUser) {
-    return <Redirect to="/" />;
-  }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (currentUser) {
+      const { email, uid } = currentUser;
+      dispatch(login(email, uid));
+      return <Redirect to="/" />;
+    }
+  }, [currentUser, dispatch]);
 
   return (
     <div>
