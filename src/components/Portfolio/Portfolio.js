@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './_portfolio.scss';
 import PortfolioPieChart from './PortfolioPieChart';
 import PortfolioStock from './PortfolioStock';

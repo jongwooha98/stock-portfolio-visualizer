@@ -17,7 +17,6 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 // }
 
 function PortfolioPieChart({ myStocks, updateStockInfo }) {
-  console.log(myStocks);
   const [myCurrentStocks, setMyCurrentStocks] = useState({});
 
   const updatePieChart = (props) => {
@@ -42,8 +41,7 @@ function PortfolioPieChart({ myStocks, updateStockInfo }) {
   useEffect(() => {
     const updatedData = updatePieChart(myStocks);
     setMyCurrentStocks(updatedData);
-  }, []);
-  // console.log(myCurrentStocks);
+  }, [myStocks]);
 
   const data = {
     labels: myCurrentStocks.ticker,

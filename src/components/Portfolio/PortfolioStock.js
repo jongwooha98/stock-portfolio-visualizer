@@ -111,7 +111,7 @@ function PortfolioStock(props) {
                 interval="D"
                 timezone="Etc/UTC"
                 theme="light"
-                style="1"
+                // style="1"
                 locale="en"
                 toolbar_bg="#f1f3f6"
                 save_image="false"
