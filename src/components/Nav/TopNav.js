@@ -1,6 +1,6 @@
 import React from 'react';
 import './_nav.scss';
-import Logo from '../../assets/images/toss-logo.svg';
+import Logo from '../../assets/images/logo-512x512.png';
 
 import firebaseApp from '../../firebase/firebase';
 import { useDispatch } from 'react-redux';
@@ -16,7 +16,7 @@ function TopNav() {
   return (
     <div className="topnav__wrapper">
       <div className="topnav__logo">
-        <img src={Logo} width={100} alt="" />
+        <img src={Logo} width={45} alt="" />
       </div>
 
       <div className="topnav__menuItems">

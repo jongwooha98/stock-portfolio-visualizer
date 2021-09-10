@@ -6,7 +6,7 @@ import firebaseApp from '../../firebase/firebase';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../redux/actions/action';
 
-import { ReactComponent as Logo } from '../../assets/images/toss-logo.svg';
+import { ReactComponent as Logo } from '../../assets/images/logo-512x512.svg';
 // import { HashLink as Link } from 'react-router-hash-link';
 import { makeStyles } from '@material-ui/core/styles';
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
