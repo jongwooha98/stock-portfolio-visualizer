@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { withRouter } from 'react-router';
+import React, { useCallback, useEffect, useState } from 'react';
+import { withRouter, Redirect } from 'react-router';
 import firebaseApp from '../firebase/firebase';
 import { db } from '../firebase/firebase';
 import { Button, TextField } from '@material-ui/core';
@@ -21,7 +21,7 @@ const SignUp = ({ history }) => {
             const { uid, email } = response.user;
             db.collection('users').doc(uid).set({ uid, email });
           });
-        history.push('/');
+        history.push('/login');
       } catch (error) {
         alert(error);
       }
