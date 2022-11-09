@@ -1,0 +1,19 @@
+template: $CHANGES
+autolabeler:
+  - label: 'chore'
+    title: '/chore/i'
+    files:
+      - '*.md'
+    branch:
+      - '/docs{0,1}\/.+/'
+  - label: 'bugfix'
+    branch:
+      - '/fix\/.+/'
+    title:
+      - '/fix/i'
+  - label: 'feature'
+    title: '/feature/i'
+    branch:
+      - '/feature\/.+/'
+    body:
+      - '/JIRA-[0-9]{1,4}/'
