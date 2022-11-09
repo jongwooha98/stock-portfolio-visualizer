@@ -1,19 +1,35 @@
-name: Release Drafter
+name: Create PR
 
 on:
   push:
     branches:
-      - a
-
-permissions:
-  contents: read
+    - develop
 
 jobs:
-  update_release_draft:
-    permissions:
-      contents: write  
+  create-PR:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "master"
+        pr_title: "[BOT] Production Release"
+        pr_body: "Merge this PR for production release :rocket:"
+        pr_label: "bot"
+        pr_draft: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  update_release_draft:
+    needs: [ create-PR ] 
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Create tag
         uses: actions/github-script@v6
         id: tag
@@ -27,6 +43,6 @@ jobs:
         with:
           name: "${{ steps.tag.outputs.result }}"
           tag: ${{ steps.tag.outputs.result }}
-          publish: true
+          # publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
