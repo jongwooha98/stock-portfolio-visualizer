@@ -23,7 +23,7 @@ jobs:
   update_release_draft:
     needs: [ create-PR ] 
     permissions:
-      contents: read|write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Create tag
