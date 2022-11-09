@@ -1,0 +1,22 @@
+name: Production Release PR
+
+on:
+  push:
+    branches:
+    - develop
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: "master"
+        pr_title: "[BOT] Production Release"
+        pr_body: ":crown: *An automated PR*
+                  Merge this PR for production release :rocket:"
+        pr_label: "ignore-for-release,bot"
+        pr_draft: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
