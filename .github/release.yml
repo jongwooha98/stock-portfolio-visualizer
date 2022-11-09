@@ -1,7 +1,7 @@
 changelog:
   exclude:
     labels:
-      - ignore-for-release
+      - bot
   categories:
     - title: New Features ✨
       labels:
@@ -15,4 +15,3 @@ changelog:
         - refactor
         - chore
         - "*"
-      

@@ -17,6 +17,6 @@ jobs:
         pr_title: "[BOT] Production Release"
         pr_body: ":crown: *An automated PR*
                   Merge this PR for production release :rocket:"
-        pr_label: "ignore-for-release,bot"
+        pr_label: "bot"
         pr_draft: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
