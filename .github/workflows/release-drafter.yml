@@ -2,16 +2,8 @@ name: Release Drafter
 
 on:
   push:
-    # branches to consider in the event; optional, defaults to all
     branches:
       - master
-  # pull_request event is required only for autolabeler
-  pull_request:
-    # Only following types are handled by the action, but one can default to all as well
-    types: [opened, reopened, edited, synchronize]
-  # pull_request_target event is required for autolabeler to support PRs from forks
-  # pull_request_target:
-  # types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
@@ -19,16 +11,9 @@ permissions:
 jobs:
   update_release_draft:
     permissions:
-      # write permission is required to create a github release
-      contents: write
-      # write permission is required for autolabeler
-      # otherwise, read permission is required at least
-      pull-requests: write
+      contents: write  
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Create tag
         uses: actions/github-script@v6
         id: tag
@@ -38,7 +23,6 @@ jobs:
             const offset = 9 * 60 * 60 * 1000;
             const YYYMMDDHHMM = new Date(Date.now() + offset).toISOString().replace(/[^0-9]/g, '').slice(0, -5);
             return YYYMMDDHHMM;
-      # Drafts your next Release notes as Pull Requests are merged into "master"
       - uses: release-drafter/release-drafter@v5
         with:
           name: "${{ steps.tag.outputs.result }}"
