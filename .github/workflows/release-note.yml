@@ -1,0 +1,31 @@
+name: Release Note
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create Version Name
+        uses: actions/github-script@v6
+        id: version
+        with:
+          result-encoding: string
+          script: |
+            const offset = 9 * 60 * 60 * 1000;
+            const YYYMMDDHHMM = new Date(Date.now() + offset).toISOString().replace(/[^0-9]/g, '').slice(0, -5);
+
+            return YYYMMDDHHMM;
+      - name: Release
+        uses: softprops/action-gh-release@v1 
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: "${{ steps.version.outputs.result }} Release"
+          tag_name: ${{ steps.version.outputs.result }}
+          generate_release_notes: true
