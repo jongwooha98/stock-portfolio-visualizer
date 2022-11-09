@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-
-permissions:
-  contents: write
   
 jobs:
   release-note:
@@ -23,7 +20,6 @@ jobs:
           script: |
             const offset = 9 * 60 * 60 * 1000;
             const YYYMMDDHHMM = new Date(Date.now() + offset).toISOString().replace(/[^0-9]/g, '').slice(0, -5);
-
             return YYYMMDDHHMM;
 
       - name: Release
