@@ -9,6 +9,7 @@ import SignUp from './auth/SignUp';
 import PrivateRoute from './auth/PrivateRoute';
 
 function App() {
+  console.log('bug')
   return (
     <AuthProvider>
       <Router>
