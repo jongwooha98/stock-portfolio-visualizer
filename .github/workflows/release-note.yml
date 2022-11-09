@@ -9,7 +9,7 @@ permissions:
   contents: write
   
 jobs:
-  build:
+  release-note:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,10 +25,11 @@ jobs:
             const YYYMMDDHHMM = new Date(Date.now() + offset).toISOString().replace(/[^0-9]/g, '').slice(0, -5);
 
             return YYYMMDDHHMM;
+
       - name: Release
         uses: softprops/action-gh-release@v1 
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           name: "${{ steps.version.outputs.result }} Release"
           tag_name: ${{ steps.version.outputs.result }}
           generate_release_notes: true
