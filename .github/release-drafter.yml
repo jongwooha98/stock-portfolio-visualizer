@@ -1,3 +1,4 @@
+template: $CHANGES
 autolabeler:
   - label: 'chore'
     title: '/chore/i'
