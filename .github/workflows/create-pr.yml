@@ -16,7 +16,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-          branch: develop
+          branch: master
           title: '[BOT] Production Deploy PR'
           body: |
             Update report
