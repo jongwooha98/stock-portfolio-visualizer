@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    types: [opened, reopened, edited, synchronize]
-  
 
 permissions:
   contents: read
@@ -14,12 +11,9 @@ permissions:
 jobs:
   update_release_draft:
     permissions:
-      contents: write
-      pull-requests: write
+      contents: write  
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: Create tag
         uses: actions/github-script@v6
         id: tag
@@ -29,8 +23,7 @@ jobs:
             const offset = 9 * 60 * 60 * 1000;
             const YYYMMDDHHMM = new Date(Date.now() + offset).toISOString().replace(/[^0-9]/g, '').slice(0, -5);
             return YYYMMDDHHMM;
-      - name: Publish release note
-        uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@v5
         with:
           name: "${{ steps.tag.outputs.result }}"
           tag: ${{ steps.tag.outputs.result }}

@@ -1,4 +1,4 @@
-name: Production Release PR
+name: Create PR
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
     - develop
 
 jobs:
-  pull-request:
+  create-PR:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
