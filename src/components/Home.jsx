@@ -8,7 +8,7 @@ import Portfolio from './Portfolio/Portfolio';
 import Crud from '../firebase/Crud';
 import Finnhub from '../finnhub/Finnhub';
 
-function Home() {
+const Home = () => {
   // Responsive Navbar
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
   const updateMedia = () => {
