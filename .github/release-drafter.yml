@@ -6,7 +6,7 @@ template: |
 footer: |
   $CONTRIBUTORS
 
- categories:
+categories:
   - title: New Features ✨
     labels:
       - feature
