@@ -15,8 +15,7 @@ jobs:
       with:
         destination_branch: "master"
         pr_title: "[BOT] Production Release"
-        pr_body: ":crown: *An automated PR*
-                  Merge this PR for production release :rocket:"
+        pr_body: "Merge this PR for production release :rocket:"
         pr_label: "bot"
         pr_draft: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
