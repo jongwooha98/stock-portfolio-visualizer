@@ -19,30 +19,3 @@ jobs:
         pr_label: "bot"
         pr_draft: true
         github_token: ${{ secrets.GITHUB_TOKEN }}
-
-  update_release_draft:
-    needs: [ create-PR ] 
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Create tag
-        uses: actions/github-script@v6
-        id: tag
-        with:
-          result-encoding: string
-          script: |
-            const offset = 9 * 60 * 60 * 1000;
-            const YYYMMDDHHMM = new Date(Date.now() + offset).toISOString().replace(/[^0-9]/g, '').slice(0, -5);
-            return YYYMMDDHHMM;
-      - uses: release-drafter/release-drafter@v5
-        with:
-          name: "${{ steps.tag.outputs.result }}"
-          tag: ${{ steps.tag.outputs.result }}
-          # publish: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
