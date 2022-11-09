@@ -1,10 +1,7 @@
 template: |
-  ## What's Changed
+  ## What's Changed 🚀
 
   $CHANGES
-
-footer: |
-  $CONTRIBUTORS
 
 categories:
   - title: New Features ✨
